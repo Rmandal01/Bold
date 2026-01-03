@@ -25,6 +25,7 @@ A GitHub-style contribution graph todo list application that helps you track you
 
 ### Development
 ```bash
+npm install
 npm run dev
 ```
 Visit [http://localhost:5173](http://localhost:5173)
@@ -38,6 +39,29 @@ npm run build
 ```bash
 npm run preview
 ```
+
+## Deploy to Vercel
+
+### Option 1: Deploy with Vercel CLI
+```bash
+# Install Vercel CLI globally
+npm install -g vercel
+
+# Deploy
+vercel
+```
+
+### Option 2: Deploy via Vercel Dashboard
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Click "New Project"
+4. Import your GitHub repository
+5. Vercel will auto-detect Vite and deploy
+
+### Option 3: Deploy Button
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=YOUR_REPO_URL)
+
+The app will be live at your Vercel URL (e.g., `your-project.vercel.app`)
 
 ## How to Use
 

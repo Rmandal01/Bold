@@ -4,8 +4,10 @@ import { formatDate, addDays, getPreviousSunday } from './dateHelpers';
 export const getCompletionsForDate = (dateString, todos) => {
   return todos.filter(todo => {
     if (!todo.completed || !todo.completedAt) return false;
-    const completedDate = formatDate(new Date(todo.completedAt));
-    return completedDate === dateString;
+    // Parse the ISO string and format in local timezone
+    const completedDate = new Date(todo.completedAt);
+    const localDate = formatDate(completedDate);
+    return localDate === dateString;
   }).length;
 };
 
@@ -18,27 +20,36 @@ export const calculateLevel = (count) => {
   return 4;
 };
 
-// Generate 52-week grid data structure (like GitHub)
-export const generateGraphData = (todos) => {
+// Generate year grid data structure (like GitHub)
+export const generateGraphData = (todos, year = null) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // GitHub shows exactly 53 weeks (371 days) to ensure full year coverage
-  // End on Saturday of current week
-  const dayOfWeek = today.getDay();
-  const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
-  const endDate = addDays(today, daysUntilSaturday);
+  // Get current year or use provided year
+  const currentYear = year || today.getFullYear();
 
-  // Start 52 weeks before the end date (52 * 7 = 364 days back)
-  // Then go to the Sunday before that to align to week start
-  const startDate = addDays(endDate, -(52 * 7));
-  const startSunday = getPreviousSunday(startDate);
+  // Start from January 1 of current year
+  const yearStart = new Date(currentYear, 0, 1);
+  yearStart.setHours(0, 0, 0, 0);
+
+  // Find the Sunday before or on January 1
+  const startDay = yearStart.getDay();
+  const startDate = addDays(yearStart, -startDay);
+
+  // End at December 31 of current year
+  const yearEnd = new Date(currentYear, 11, 31);
+  yearEnd.setHours(0, 0, 0, 0);
+
+  // Find the Saturday after or on December 31
+  const endDay = yearEnd.getDay();
+  const daysToSaturday = endDay === 6 ? 0 : 6 - endDay;
+  const endDate = addDays(yearEnd, daysToSaturday);
 
   const weeks = [];
-  let currentDate = new Date(startSunday);
+  let currentDate = new Date(startDate);
 
-  // Generate exactly 53 weeks to show full year
-  for (let weekNum = 0; weekNum < 53; weekNum++) {
+  // Generate weeks until we reach the end date
+  while (currentDate <= endDate) {
     const weekDays = [];
 
     for (let dayNum = 0; dayNum < 7; dayNum++) {
@@ -61,27 +72,36 @@ export const generateGraphData = (todos) => {
   return weeks;
 };
 
-// Get month labels for the graph
-export const getMonthLabels = (weeks) => {
+// Get month labels for the graph (GitHub style)
+export const getMonthLabels = (weeks, year = null) => {
   const labels = [];
-  let lastMonth = null;
+  const addedMonths = new Set();
+  const targetYear = year || new Date().getFullYear();
 
-  weeks.forEach((week, index) => {
-    const firstDay = new Date(week[0].date);
-    const month = firstDay.getMonth();
-
-    // Only add label if month changed and it's not the first week
-    // (skip partial months at the start)
-    if (month !== lastMonth && index > 0) {
-      labels.push({
-        index,
-        month: firstDay.toLocaleDateString('en-US', { month: 'short' })
-      });
-      lastMonth = month;
-    } else if (index === 0) {
-      // Track the first month but don't display it
-      lastMonth = month;
+  weeks.forEach((week, weekIndex) => {
+    // Skip the very first week to avoid partial month label
+    if (weekIndex === 0) {
+      const firstDay = new Date(week[0].date);
+      const monthKey = `${firstDay.getFullYear()}-${firstDay.getMonth()}`;
+      addedMonths.add(monthKey);
+      return;
     }
+
+    // Check all days in the week to find new months
+    week.forEach((day) => {
+      const dayDate = new Date(day.date);
+      const monthKey = `${dayDate.getFullYear()}-${dayDate.getMonth()}`;
+
+      // Only add label if this is a new month we haven't seen AND it's in the target year
+      if (!addedMonths.has(monthKey) && dayDate.getFullYear() === targetYear) {
+        const monthName = dayDate.toLocaleDateString('en-US', { month: 'short' });
+        labels.push({
+          index: weekIndex,
+          month: monthName
+        });
+        addedMonths.add(monthKey);
+      }
+    });
   });
 
   return labels;
