@@ -25,8 +25,8 @@ export default function GraphCell({ date, count, level }) {
     <div className="relative">
       <div
         className={`w-[10px] h-[10px] rounded-sm ${colorClass}
-                    border border-gray-200 cursor-pointer
-                    hover:ring-1 hover:ring-gray-500 transition-all`}
+                    border border-gray-200 dark:border-gray-600 cursor-pointer
+                    hover:ring-1 hover:ring-gray-500 dark:hover:ring-gray-400 transition-all`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         role="gridcell"

@@ -17,11 +17,11 @@ export default function ContributionGraph({ todos }) {
   const yearOptions = [currentYear, currentYear - 1, currentYear - 2];
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 transition-colors">
       <div className="mb-4 flex justify-between items-center">
         <div>
-          <h2 className="text-xl font-bold text-gray-800 mb-2">Your Consistency</h2>
-          <p className="text-sm text-gray-600">Track your daily task completion in {selectedYear}</p>
+          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Your Consistency</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Track your daily task completion in {selectedYear}</p>
         </div>
         <div className="flex gap-2">
           {yearOptions.map((year) => (
@@ -30,8 +30,8 @@ export default function ContributionGraph({ todos }) {
               onClick={() => setSelectedYear(year)}
               className={`px-3 py-1 text-sm rounded transition-colors ${
                 selectedYear === year
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-green-600 dark:bg-green-700 text-white'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >
               {year}
@@ -51,7 +51,7 @@ export default function ContributionGraph({ todos }) {
             return (
               <div
                 key={`${label.month}-${label.index}`}
-                className="absolute text-[11px] text-gray-600"
+                className="absolute text-[11px] text-gray-600 dark:text-gray-400"
                 style={{
                   left: `${position}px`
                 }}
@@ -69,7 +69,7 @@ export default function ContributionGraph({ todos }) {
             {[0, 1, 2, 3, 4, 5, 6].map((dayIndex) => (
               <div key={dayIndex} className="h-[10px] flex items-center justify-end">
                 {dayIndices.includes(dayIndex) && (
-                  <span className="text-[9px] text-gray-500 w-6">
+                  <span className="text-[9px] text-gray-500 dark:text-gray-400 w-6">
                     {dayLabels[dayIndices.indexOf(dayIndex)]}
                   </span>
                 )}
@@ -95,14 +95,14 @@ export default function ContributionGraph({ todos }) {
         </div>
 
         {/* Legend */}
-        <div className="flex items-center justify-end gap-2 mt-3 text-[11px] text-gray-600">
+        <div className="flex items-center justify-end gap-2 mt-3 text-[11px] text-gray-600 dark:text-gray-400">
           <span>Less</span>
           <div className="flex gap-[2px]">
-            <div className="w-[10px] h-[10px] rounded-sm bg-gray-100 border border-gray-200"></div>
-            <div className="w-[10px] h-[10px] rounded-sm bg-green-200 border border-gray-200"></div>
-            <div className="w-[10px] h-[10px] rounded-sm bg-green-400 border border-gray-200"></div>
-            <div className="w-[10px] h-[10px] rounded-sm bg-green-600 border border-gray-200"></div>
-            <div className="w-[10px] h-[10px] rounded-sm bg-green-800 border border-gray-200"></div>
+            <div className="w-[10px] h-[10px] rounded-sm bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"></div>
+            <div className="w-[10px] h-[10px] rounded-sm bg-green-200 dark:bg-green-900 border border-gray-200 dark:border-gray-600"></div>
+            <div className="w-[10px] h-[10px] rounded-sm bg-green-400 dark:bg-green-700 border border-gray-200 dark:border-gray-600"></div>
+            <div className="w-[10px] h-[10px] rounded-sm bg-green-600 dark:bg-green-600 border border-gray-200 dark:border-gray-600"></div>
+            <div className="w-[10px] h-[10px] rounded-sm bg-green-800 dark:bg-green-500 border border-gray-200 dark:border-gray-600"></div>
           </div>
           <span>More</span>
         </div>

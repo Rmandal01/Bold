@@ -10,11 +10,11 @@ export default function TodoList({ todos, onAdd, onToggle, onDelete }) {
       <AddTodoForm onAdd={onAdd} />
 
       <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-3 text-gray-700">
+        <h3 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
           Active Tasks ({activeTodos.length})
         </h3>
         {activeTodos.length === 0 ? (
-          <p className="text-gray-400 text-center py-4">No active tasks. Add one above!</p>
+          <p className="text-gray-400 dark:text-gray-500 text-center py-4">No active tasks. Add one above!</p>
         ) : (
           activeTodos.map(todo => (
             <TodoItem
@@ -29,7 +29,7 @@ export default function TodoList({ todos, onAdd, onToggle, onDelete }) {
 
       {completedTodos.length > 0 && (
         <div className="mt-6">
-          <h3 className="text-lg font-semibold mb-3 text-gray-700">
+          <h3 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
             Completed ({completedTodos.length})
           </h3>
           {completedTodos.map(todo => (

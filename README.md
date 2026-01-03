@@ -4,8 +4,10 @@ A GitHub-style contribution graph todo list application that helps you track you
 
 ## Features
 
-- **GitHub-Style Contribution Graph**: Visual representation of your task completion over the last 52 weeks
+- **GitHub-Style Contribution Graph**: Visual representation of your task completion for the current year
+- **Year Selector**: Switch between 2024, 2025, and 2026 to view historical data
 - **Todo List Management**: Add, complete, and delete tasks
+- **Dark Mode**: Toggle between light and dark themes with the sun/moon icon (persists across sessions)
 - **Persistent Storage**: All data is saved in your browser's localStorage
 - **Color-Coded Activity**: 5 intensity levels based on daily task completion
   - Gray: 0 tasks
@@ -68,7 +70,9 @@ The app will be live at your Vercel URL (e.g., `your-project.vercel.app`)
 1. **Add Tasks**: Type a task description in the input field and click "Add"
 2. **Complete Tasks**: Check the checkbox next to a task to mark it as complete
 3. **Delete Tasks**: Click the "Delete" button to remove a task
-4. **View Consistency**: The contribution graph shows your completion activity over the past year
+4. **View Consistency**: The contribution graph shows your completion activity for the selected year
+5. **Switch Years**: Click the year buttons (2024, 2025, 2026) to view different years
+6. **Toggle Dark Mode**: Click the sun/moon icon in the header to switch between light and dark themes
 
 ## Data Storage
 
@@ -92,7 +96,8 @@ src/
 ├── hooks/
 │   ├── useLocalStorage.js        # localStorage hook
 │   ├── useTodos.js               # Todo management hook
-│   └── useContributions.js       # Graph data hook
+│   ├── useContributions.js       # Graph data hook
+│   └── useDarkMode.js            # Dark mode management hook
 ├── utils/
 │   ├── dateHelpers.js            # Date utilities
 │   ├── contributionHelpers.js    # Graph calculation
@@ -107,5 +112,5 @@ src/
 - Task categories/tags
 - Export/import data
 - Statistics panel
-- Dark mode
 - Custom color themes
+- Mobile app version

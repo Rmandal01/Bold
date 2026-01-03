@@ -1,27 +1,27 @@
 export const CONTRIBUTION_COLORS = {
   0: {
-    bg: 'bg-gray-100',
-    hover: 'hover:bg-gray-200',
+    bg: 'bg-gray-100 dark:bg-gray-700',
+    hover: 'hover:bg-gray-200 dark:hover:bg-gray-600',
     hex: '#ebedf0'
   },
   1: {
-    bg: 'bg-green-200',
-    hover: 'hover:bg-green-300',
+    bg: 'bg-green-200 dark:bg-green-900',
+    hover: 'hover:bg-green-300 dark:hover:bg-green-800',
     hex: '#9be9a8'
   },
   2: {
-    bg: 'bg-green-400',
-    hover: 'hover:bg-green-500',
+    bg: 'bg-green-400 dark:bg-green-700',
+    hover: 'hover:bg-green-500 dark:hover:bg-green-600',
     hex: '#40c463'
   },
   3: {
-    bg: 'bg-green-600',
-    hover: 'hover:bg-green-700',
+    bg: 'bg-green-600 dark:bg-green-600',
+    hover: 'hover:bg-green-700 dark:hover:bg-green-500',
     hex: '#30a14e'
   },
   4: {
-    bg: 'bg-green-800',
-    hover: 'hover:bg-green-900',
+    bg: 'bg-green-800 dark:bg-green-500',
+    hover: 'hover:bg-green-900 dark:hover:bg-green-400',
     hex: '#216e39'
   }
 };

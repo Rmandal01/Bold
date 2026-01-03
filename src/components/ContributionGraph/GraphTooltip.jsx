@@ -13,8 +13,9 @@ export default function GraphTooltip({ date, count, position }) {
 
   return (
     <div
-      className="absolute z-10 bg-gray-900 text-white text-xs
-                 rounded px-2 py-1 whitespace-nowrap pointer-events-none"
+      className="absolute z-10 bg-gray-900 dark:bg-gray-800 text-white text-xs
+                 rounded px-2 py-1 whitespace-nowrap pointer-events-none
+                 shadow-lg border border-gray-700 dark:border-gray-600"
       style={{
         left: `${position.x}px`,
         top: `${position.y - 40}px`
